@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(function(){
+        $("#callAjax").click(function() {
+        var cityName = $.trim($("#cityName").val())
+
+        if (cityName.length > 0) {
+            $.getJSON({url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=7655c44331d1ba6cffcf1e887c4aa981",})
+            .done(function( data ){
+                $("#content").append(kelvin_to_farenheit(data.main.temp))
+            })
+        }
+    });
+    });
+
+    function kelvin_to_farenheit( kelvin ){
+        kelvin = parseFloat(kelvin)
+        kelvin -= 273.15
+        kelvin *= 9.0
+        kelvin /= 5.0
+        kelvin += 32 
+        kelvin = kelvin.toString()
+        kelvin = kelvin.charAt(1) == "." ? kelvin.slice(0, 4) : kelvin.charAt(2) == "." ? kelvin.slice(0, 5) : kelvin.slice(0, 6)
+        return kelvin
+    }
+    </script>
+</head>
+<body>
+    <input type="text" id="cityName" name="cityName" value="" />
+    <br>
+    <input id="callAjax" type="button" value="Submit" />
+    <br><br>
+    <div id="content">
+
+    </div>
+</body>
