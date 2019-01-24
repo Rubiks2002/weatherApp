@@ -9,7 +9,7 @@
         if (cityName.length > 0) {
             $.getJSON({url: "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=7655c44331d1ba6cffcf1e887c4aa981",})
             .done(function( data ){
-                $("#content").append(kelvin_to_farenheit(data.main.temp))
+                $("#content").html(kelvin_to_farenheit(data.main.temp))
             })
         }
     });
